@@ -6,20 +6,23 @@
     "message": "You shall not pass!"
   }
 */
-function restricted() {
-
+function restricted(req, res, next) {
+  console.log("restricted middleware!!!")
+  next()
 }
 
 /*
-  If the username in req.body already exists in the database
-
+  If the username in req.body already exists in treq, res, nexthe database
+  console.log("restricted middleware!!!")
+  next()
   status 422
   {
     "message": "Username taken"
   }
 */
-function checkUsernameFree() {
-
+function checkUsernameFree(req, res, next) {
+  console.log("checkUsernameFree middleware!!!")
+  next()
 }
 
 /*
@@ -30,8 +33,9 @@ function checkUsernameFree() {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists() {
-
+function checkUsernameExists(req, res, next) {
+  console.log("checkUsernameExists middleware!!!")
+  next()
 }
 
 /*
@@ -42,8 +46,15 @@ function checkUsernameExists() {
     "message": "Password must be longer than 3 chars"
   }
 */
-function checkPasswordLength() {
-
+function checkPasswordLength(req, res, next) {
+  console.log("checkPasswordLength middleware!!!")
+  next()
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
+module.exports = {
+  restricted,
+  checkUsernameFree,
+  checkUsernameExists,
+  checkPasswordLength, 
+}
