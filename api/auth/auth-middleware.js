@@ -30,7 +30,7 @@ async function checkUsernameFree (req, res, next) {
     if(!users.length){
       next()
     }else{
-      next({"message": "Username taken"})
+      next({"message": "Username taken", status: 422})
     }
   }catch(err){
     next(err)
@@ -45,9 +45,20 @@ async function checkUsernameFree (req, res, next) {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists(req, res, next) {
-  console.log("checkUsernameExists middleware!!!")
-  next()
+async function checkUsernameExists(req, res, next) {
+  // console.log("checkUsernameExists middleware!!!")
+  // next()
+  try{
+    const users = await Users.findBy({username: req.body.username})
+    console.log(users)
+    if(users.length){
+      next()
+    }else{
+      next({"message": "Invalid credentials", status: 401})
+    }
+  }catch(err){
+    next(err)
+  }
 }
 
 /*
