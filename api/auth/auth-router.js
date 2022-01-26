@@ -2,6 +2,11 @@
 // middleware functions from `auth-middleware.js`. You will need them here!
 
 const router = require('express').Router()
+const {checkUsernameFree,
+  checkUsernameExists,
+  checkPasswordLength
+} = require('./auth-middleware')
+const Users = require('../users/users-model')
 /**
   1 [POST] /api/auth/register { "username": "sue", "password": "1234" }
 
@@ -25,8 +30,9 @@ const router = require('express').Router()
   }
  */
   // http post  :9000/api/auth/register
-  router.post('/register', (req, res, next)=>{
+  router.post('/register',checkPasswordLength, checkUsernameFree, async(req, res, next)=>{
     res.json('register')
+
   })
 
 
@@ -46,7 +52,7 @@ const router = require('express').Router()
   }
  */
   // http post  :9000/api/auth/login
-  router.post('/login', (req, res, next)=>{
+  router.post('/login',checkUsernameExists, (req, res, next)=>{
     res.json('login')
   })
 

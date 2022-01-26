@@ -11,8 +11,10 @@ function find() {
 /**
   resolves to an ARRAY with all users that match the filter condition
  */
-function findBy(filter) {
-  return db('users').where(filter)
+async function findBy(filter) {
+  const result =  await db('users').where(filter)
+  // const [result] = await db('users').where(filter)
+  return  result
 }
 
 /**
@@ -25,7 +27,7 @@ function findById(user_id) {
 /**
   resolves to the newly inserted user { user_id, username }
  */
-  async function add(user) {
+async function add(user) {
   const [id] = await db('users').insert(user)
   return findById(id)
 }

@@ -71,4 +71,8 @@ The database `auth.db3` includes a single `users` table:
 
 Intro to Authentication
 https://bloomtech-1.wistia.com/medias/hr50j3c06h
+
+
+npm i bcryptjs express-session connect-session-knex
+
 ```

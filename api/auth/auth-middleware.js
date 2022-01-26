@@ -1,3 +1,4 @@
+const Users = require('../users/users-model')
 /*
   If the user does not have a session saved in the server
 
@@ -12,7 +13,7 @@ function restricted(req, res, next) {
 }
 
 /*
-  If the username in req.body already exists in treq, res, nexthe database
+  If the username in req.body already exists in req, res, nextt he database
   console.log("restricted middleware!!!")
   next()
   status 422
@@ -20,9 +21,20 @@ function restricted(req, res, next) {
     "message": "Username taken"
   }
 */
-function checkUsernameFree(req, res, next) {
-  console.log("checkUsernameFree middleware!!!")
-  next()
+async function checkUsernameFree (req, res, next) {
+  // console.log("checkUsernameFree middleware!!!")
+  // next()
+  try{
+    const users = await Users.findBy({username: req.body.username})
+    console.log(users)
+    if(!users.length){
+      next()
+    }else{
+      next({"message": "Username taken"})
+    }
+  }catch(err){
+    next(err)
+  }
 }
 
 /*
