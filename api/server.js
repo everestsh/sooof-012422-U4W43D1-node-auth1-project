@@ -28,7 +28,7 @@ server.use(session({
   saveUninitialized: false,
   resave: false,
   store: new Store({
-    knex,
+    knex: require('../data/db-config'),
     createtable: true,
     clearInterval: 1000 * 60 *10,
     tablename: 'sessions',

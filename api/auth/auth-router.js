@@ -7,6 +7,8 @@ const {checkUsernameFree,
   checkPasswordLength
 } = require('./auth-middleware')
 const Users = require('../users/users-model')
+const bcrypt = require('bcryptjs')
+
 /**
   1 [POST] /api/auth/register { "username": "sue", "password": "1234" }
 
@@ -30,8 +32,17 @@ const Users = require('../users/users-model')
   }
  */
   // http post  :9000/api/auth/register
+  // TEST: http post  :9000/api/auth/register username=bonnn password=1234
   router.post('/register',checkPasswordLength, checkUsernameFree, async(req, res, next)=>{
-    res.json('register')
+    // res.json('register')
+    const { username, password } = req.body
+    const hash = bcrypt.hashSync(password, 10) //2^10
+
+    Users.add({ username, password : hash})
+      .then( saveed => {
+        res.status(201).json(saveed)
+      })
+      .catch(next)
 
   })
 
@@ -53,7 +64,7 @@ const Users = require('../users/users-model')
  */
   // http post  :9000/api/auth/login
   router.post('/login',checkUsernameExists, (req, res, next)=>{
-    res.json('login')
+    // res.json('login')
   })
 
 /**
