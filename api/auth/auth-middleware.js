@@ -21,6 +21,9 @@ function restricted(req, res, next) {
     "message": "Username taken"
   }
 */
+// TEST Err: http post  :9000/api/auth/register username=bob
+// TEST: http post  :9000/api/auth/register username=bobmm
+
 async function checkUsernameFree (req, res, next) {
   // console.log("checkUsernameFree middleware!!!")
   // next()
@@ -45,6 +48,8 @@ async function checkUsernameFree (req, res, next) {
     "message": "Invalid credentials"
   }
 */
+// TEST: http post  :9000/api/auth/login username=bob
+// TEST Err: http post  :9000/api/auth/login username=bobmm
 async function checkUsernameExists(req, res, next) {
   // console.log("checkUsernameExists middleware!!!")
   // next()
@@ -69,9 +74,16 @@ async function checkUsernameExists(req, res, next) {
     "message": "Password must be longer than 3 chars"
   }
 */
+// TEST: http post  :9000/api/auth/register username=bonnn password=1234
+// TEST Err: http post  :9000/api/auth/register username=bonnn password=12
 function checkPasswordLength(req, res, next) {
-  console.log("checkPasswordLength middleware!!!")
-  next()
+  // console.log("checkPasswordLength middleware!!!")
+  // next()
+  if(!req.body.password || req.body.password.length<3){
+    next({ "message": "Password must be longer than 3 chars", status: 422})
+  }else{
+    next()
+  }
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
