@@ -94,7 +94,18 @@ const bcrypt = require('bcryptjs')
  */
   // http get  :9000/api/auth/logout
   router.get('/logout', (req, res, next)=>{
-    res.json('logout')
+    // res.json('logout')
+    if(!req.session.user) {
+      next({ status: 200, message: "no session"})
+    } else {
+      req.session.destroy((err) => {
+        if (err) {
+          next({ status: 500, message: "Something went wrong trying to logout"})
+        } else {
+          res.status(200).json({ message: "logged out"})
+        }
+      })
+    }
   })
  
 // Don't forget to add the router to the `exports` object so it can be required in other modules
