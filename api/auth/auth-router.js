@@ -63,8 +63,18 @@ const bcrypt = require('bcryptjs')
   }
  */
   // http post  :9000/api/auth/login
+  // TEST ERR: http   :9000/api/auth/login username=bonnnxxx password=1234
   router.post('/login',checkUsernameExists, (req, res, next)=>{
     // res.json('login')
+    const { password } = req.body
+    if (bcrypt.compareSync(password, req.user.password)){
+      // make it so the cookies is set on the client
+      // make it so server store  a session with a session id
+      req.session.user = req.user
+      res.json({ message: `Welcome ${req.user.username}`})
+    } else {
+      next( {status: 401, "message": "Invalid credentials"} )
+    }
   })
 
 /**
