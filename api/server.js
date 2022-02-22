@@ -25,31 +25,9 @@ server.use(helmet());
 server.use(express.json());
 server.use(cors());
 
-// const sessionConfig = {
-//   name: 'chocolatechip',
-//   secret: 'keep it secret, keep it safe!',
-//   resave: false,
-//   saveUnitialized: false,
-//   cookie: {
-//     maxAge: 1000 * 60 * 60 * 24,
-//     secure: false,
-//     httpOnly: true,
-//     // sameSite: 'none' // https
-//   },
-//   store: new Store({
-//     knex: require('../data/db-config'),
-//     tablename: 'sessions',
-//     sidfieldname: 'sid',
-//     createtable: true,
-//     clearInterval: 1000 * 60 * 60,
-//   })
-
-// };
-// server.use(session(sessionConfig));
-//way 2
-server.use(session({
+const sessionConfig = {
   name: 'chocolatechip',
-  secret: 'big ol secret',
+  secret: 'keep it secret, keep it safe!',
   cookie: {
     maxAge: 1000 * 60,
     secure: false,
@@ -64,7 +42,27 @@ server.use(session({
     createtable: true,
     clearInterval: 1000 * 60 * 60,
   })
-}))
+};
+server.use(session(sessionConfig));
+//way 2
+// server.use(session({
+//   name: 'chocolatechip',
+//   secret: 'big ol secret',
+//   cookie: {
+//     maxAge: 1000 * 60,
+//     secure: false,
+//     httpOnly: false,
+//   },
+//   resave: false,
+//   saveUninitialized: false,
+//   store: new Store({
+//     knex: require('../data/db-config'),
+//     tablename: 'sessions',
+//     sidfieldname: 'sid',
+//     createtable: true,
+//     clearInterval: 1000 * 60 * 60,
+//   })
+// }))
 
 server.use('/api/users', usersRouter)
 server.use('/api/auth', authRouter)
