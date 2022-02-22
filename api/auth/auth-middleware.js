@@ -6,8 +6,8 @@
     "message": "You shall not pass!"
   }
 */
-function restricted() {
-  console.log( "restricteds  middleware")
+function restricted(req, res, nexts) {
+  console.log( "restricted  middleware")
   next()
 }
 
@@ -19,7 +19,7 @@ function restricted() {
     "message": "Username taken"
   }
 */
-function checkUsernameFree() {
+function checkUsernameFree(req, res, next) {
   console.log( "checkUsernameFree  middleware")
   next()
 }
@@ -32,7 +32,7 @@ function checkUsernameFree() {
     "message": "Invalid credentials"
   }
 */
-function checkUsernameExists() {
+function checkUsernameExists(req, res, next) {
   console.log( "checkUsernameExists  middleware")
   next()
 }
@@ -45,7 +45,7 @@ function checkUsernameExists() {
     "message": "Password must be longer than 3 chars"
   }
 */
-function () {
+function checkPasswordLength(req, res, next) {
   console.log( "checkPasswordLength  middleware")
   next()
 }
