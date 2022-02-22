@@ -7,7 +7,8 @@
   }
 */
 function restricted() {
-
+  console.log( "restricteds  middleware")
+  next()
 }
 
 /*
@@ -19,7 +20,8 @@ function restricted() {
   }
 */
 function checkUsernameFree() {
-
+  console.log( "checkUsernameFree  middleware")
+  next()
 }
 
 /*
@@ -31,7 +33,8 @@ function checkUsernameFree() {
   }
 */
 function checkUsernameExists() {
-
+  console.log( "checkUsernameExists  middleware")
+  next()
 }
 
 /*
@@ -42,8 +45,16 @@ function checkUsernameExists() {
     "message": "Password must be longer than 3 chars"
   }
 */
-function checkPasswordLength() {
-
+function () {
+  console.log( "checkPasswordLength  middleware")
+  next()
 }
 
 // Don't forget to add these to the `exports` object so they can be required in other modules
+
+module.exports = {
+  restricted,
+  checkUsernameFree,
+  checkUsernameExists,
+  checkPasswordLength,
+}
