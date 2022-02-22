@@ -2,6 +2,7 @@
 const router = require("express").Router()
 const {restricted} = require('../auth/auth-middleware')
 const User = require('./users-model')
+
 /**
   [GET] /api/users
 
@@ -26,7 +27,7 @@ const User = require('./users-model')
  */
 
   //  http get :9000/api/users
-  router.get('/',  async (req, res, next) => { 
+  router.get('/', restricted, async (req, res, next) => { 
     // res.json({message: "users "})
     try{
       const user = await User.find()

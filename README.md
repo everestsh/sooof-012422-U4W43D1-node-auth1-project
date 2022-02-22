@@ -68,6 +68,7 @@ The database `auth.db3` includes a single `users` table:
 
 ```
 npm i express-session
+npm i connect-session-knex 
 
 
 Intro to Authentication
